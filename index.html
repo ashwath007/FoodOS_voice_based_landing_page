@@ -32,8 +32,21 @@
                 'Show :content': showContent,
                 'Zoom :content': zoomContent,
 
-                'Full screen': openFullScreen
+                'Full screen': openFullScreen,
+
+                ':position slide': moveSlides,
             }
+
+
+            function moveSlides(position) {
+                console.log(position)
+                if (position === 'next') {
+                    $('.carousel-control-next')[0].click();
+                } else if (position === 'previous') {
+                    $('.carousel-control-prev')[0].click();
+                }
+            }
+
 
             function openFullScreen() {
                 console.log("Full Screen")
@@ -69,14 +82,60 @@
                 }
             }
 
+
+
+            function GoInFullscreen(element) {
+                if (element.requestFullscreen)
+                    element.requestFullscreen();
+                else if (element.mozRequestFullScreen)
+                    element.mozRequestFullScreen();
+                else if (element.webkitRequestFullscreen)
+                    element.webkitRequestFullscreen();
+                else if (element.msRequestFullscreen)
+                    element.msRequestFullscreen();
+            }
+
+            /* Get out of full screen */
+            function GoOutFullscreen() {
+                if (document.exitFullscreen)
+                    document.exitFullscreen();
+                else if (document.mozCancelFullScreen)
+                    document.mozCancelFullScreen();
+                else if (document.webkitExitFullscreen)
+                    document.webkitExitFullscreen();
+                else if (document.msExitFullscreen)
+                    document.msExitFullscreen();
+            }
+
+
             function zoomContent(content) {
                 if (content === 'slide') {
                     console.log("Zoom: ", content);
-                    $('#carouselExampleControls').animate({
-                        'zoom': 5
-                    }, 400);
+
+
+
+                    /* Is currently in full screen or not */
+
+                    var full_screen_element = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
+                    console.log(full_screen_element)
+                        // If no element is in full-screen
+                    if (full_screen_element === null)
+                        GoInFullscreen($("#body").get(0));
+                    else
+                        GoOutFullscreen();
+
+
+
                 }
             }
+
+
+
+
+
+
+
+
 
             // Add Commands
             annyang.addCommands(commands);
@@ -195,6 +254,12 @@
                 </div>
             </section>
 
+
+
+
+
+
+
             <section class="product-slide-service" id="product-slide-section" style="margin-bottom: 50px;">
                 <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
@@ -221,6 +286,11 @@
                     </a>
                 </div>
             </section>
+
+
+
+
+
             <section class="digital-marketing-service " id="digital-marketing-section ">
                 <div class="row align-items-center ">
                     <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0 " data-aos="fade-right ">
