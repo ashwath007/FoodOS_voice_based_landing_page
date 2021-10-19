@@ -19,6 +19,8 @@
     <script>
         var messages = ['🔊 Hey', '🔊 Hi, there!', '🔊 Hi!', '🔊 Hello'];
 
+
+
         if (annyang) {
             console.log("We have annyang!");
 
@@ -26,7 +28,17 @@
                 'Welcome': welcome,
                 'What is your name': myname,
                 'Calculate :month': calculateStats,
+
                 'Show :content': showContent,
+                'Zoom :content': zoomContent,
+
+                'Full screen': openFullScreen
+            }
+
+            function openFullScreen() {
+                console.log("Full Screen")
+
+
             }
 
             function welcome1() {
@@ -35,8 +47,7 @@
             }
 
             function welcome() {
-                var randomIndex = Math.round(Math.random() * messages.length);
-                console.log(`%c ${messages[randomIndex]}`, 'color: green; font-weight:bold;');
+                $('#welcome').text('Welcome To FoodOS product presentation')
             }
 
             function myname() {
@@ -53,6 +64,17 @@
                     $('html, body').animate({
                         scrollTop: $('#product-slide-section').offset().top
                     }, 2000);
+                } else if (content === 'slide') {
+
+                }
+            }
+
+            function zoomContent(content) {
+                if (content === 'slide') {
+                    console.log("Zoom: ", content);
+                    $('#carouselExampleControls').animate({
+                        'zoom': 5
+                    }, 400);
                 }
             }
 
@@ -121,7 +143,7 @@
     </header>
     <div class="banner ">
         <div class="container ">
-            <h1 class="font-weight-semibold "><span style="color: #911EE4; ">foodOS</span><br> The Super Bot 🐱‍🏍</h1>
+            <h1 class="font-weight-semibold "><span id="welcome" style="color: #911EE4; ">foodOS</span><br> The Super Bot 🐱‍🏍</h1>
             <!-- <h6 class="font-weight-normal text-muted pb-3 mt-4 ">FoodOS is based on hyper-local on-demand food/grocery delivery SaaS platform, wherein Restaurants/Supermarket pay to use foodos's services </h6> -->
             <h6 class="font-weight-normal text-muted pb-3 mt-4 ">FoodOS is SaaS based hyper-local on-demand food/grocery delivery platform.</h6>
             <div>
@@ -174,7 +196,7 @@
             </section>
 
             <section class="product-slide-service" id="product-slide-section" style="margin-bottom: 50px;">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img class="d-block w-100" src="./images/dummy1.png" alt="First slide">
